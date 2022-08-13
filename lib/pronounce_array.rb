@@ -20,8 +20,15 @@ class PronounceArray
   def each
     pos = 0
     while pos < @text.length
-      if %w(キ ギ シ ジ チ ヂ ニ ヒ ビ ピ ミ リ).include?(@text[pos]) &&
-        %w(ャ ュ ョ).include?(@text[pos+1])
+      if (%w(キ ギ シ ジ チ ヂ ニ ヒ ビ ピ ミ リ).include?(@text[pos]) &&
+        %w(ャ ュ ョ).include?(@text[pos+1])) ||
+        (%w(ヴ ツ ヅ フ).include?(@text[pos]) && @text[pos+1] == 'ァ') ||
+        (%w(ウ ヴ ツ ヅ テ デ フ).include?(@text[pos]) &&
+        @text[pos+1] == 'ィ') ||
+        (%w(ト ド).include?(@text[pos]) && @text[pos+1] == 'ゥ') ||
+        (%w(イ ウ ヴ シ ジ チ ヂ ツ ヅ フ).include?(@text[pos]) &&
+        @text[pos+1] == 'ェ') ||
+        (%w(ウ ヴ ツ ヅ フ).include?(@text[pos]) && @text[pos+1] == 'ォ')
         yield @text[pos..pos+1]
         pos += 2
       else
