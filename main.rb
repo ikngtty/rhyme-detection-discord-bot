@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-require 'natto'
+require_relative 'lib/pronounce_array'
 
-mecab = Natto::MeCab.new
-puts mecab.parse("凡人にしか見えねえ風景ってのがあるんだよ")
+pronounces = PronounceArray.parse("凡人にしか,見えねえ風景ってのが社会にはあるんだよ")
+
+pronounces.each do |pronounce|
+  p pronounce
+end
