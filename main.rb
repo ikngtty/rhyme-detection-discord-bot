@@ -2,6 +2,8 @@
 
 require_relative 'lib/pronounce_array'
 
+MIN_RHYME_LENGTH = 5
+
 def get_vowel(pronounce)
   case pronounce
   when 'ア', 'カ', 'ガ', 'サ', 'ザ', 'タ', 'ダ', 'ナ', 'ハ', 'バ', 'パ',
@@ -48,5 +50,38 @@ def get_vowels(pronounces)
   end
 end
 
-pronounces = PronounceArray.parse('チョーカー').to_a
-p get_vowels(pronounces)
+def get_left_rhyme_vowels(vowels1, vowels2)
+  ans = []
+  length = [vowels1.length, vowels2.length].min
+  (0...length).each do |i|
+    if vowels1[i] != '*' && vowels1[i] == vowels2[i]
+      ans.push(vowels1[i])
+    else
+      break
+    end
+  end
+  ans
+end
+
+def detect_rhyme(text)
+  pronounces = PronounceArray.parse(text).to_a
+  vowels = get_vowels(pronounces)
+
+  rhymes = []
+  (0..(pronounces.length - 2 * MIN_RHYME_LENGTH)).each do |i|
+    ((i + MIN_RHYME_LENGTH)..(pronounces.length - MIN_RHYME_LENGTH)).each do |j|
+      vowels1 = vowels[i...j]
+      vowels2 = vowels[j...pronounces.length]
+      rhyme_vowels = get_left_rhyme_vowels(vowels1, vowels2)
+      if rhyme_vowels.length >= MIN_RHYME_LENGTH
+        pronounces1 = pronounces[i...(i + rhyme_vowels.length)]
+        pronounces2 = pronounces[j...(j + rhyme_vowels.length)]
+        next if pronounces1 == pronounces2
+        rhymes.push([pronounces1, pronounces2])
+      end
+    end
+  end
+  rhymes
+end
+
+p detect_rhyme('乾電池で感電死')
