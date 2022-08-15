@@ -58,10 +58,8 @@ class Rhyme
           'ッ'
       when 'ー'
           'ー'
-      when '*'
-          '*'
       else
-          raise "invalid pronounce: #{pronounce}"
+          '*'
       end
     end
 
