@@ -87,6 +87,8 @@ class Rhyme
 
     def get_left_rhyme_vowels(vowels1, vowels2)
       ans = []
+      return ans if vowels1[0] == 'ン'
+
       length = [vowels1.length, vowels2.length].min
       (0...length).each do |i|
         if vowels1[i] != '*' && vowels1[i] == vowels2[i]
