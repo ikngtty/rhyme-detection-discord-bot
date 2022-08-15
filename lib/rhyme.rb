@@ -20,7 +20,7 @@ class Rhyme
               pronounces1 = pronounces[i...(i + rhyme_vowels.length)]
               pronounces2 = pronounces[j...(j + rhyme_vowels.length)]
               next if pronounces1 == pronounces2
-              rhymes.push([pronounces1, pronounces2])
+              rhymes.push([pronounces1.join(''), pronounces2.join('')])
           end
           end
       end
