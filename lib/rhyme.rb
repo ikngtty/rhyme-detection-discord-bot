@@ -10,21 +10,33 @@ class Rhyme
       pronounces = PronounceArray.parse(text).to_a
       vowels = get_vowels(pronounces)
 
-      rhymes = []
+      rhyme_ranges = []
       (0..(pronounces.length - 2 * MIN_RHYME_LENGTH)).each do |i|
         ((i + MIN_RHYME_LENGTH)..(pronounces.length - MIN_RHYME_LENGTH)).each do |j|
           vowels1 = vowels[i...j]
           vowels2 = vowels[j...pronounces.length]
           rhyme_vowels = get_left_rhyme_vowels(vowels1, vowels2)
           if rhyme_vowels.length >= MIN_RHYME_LENGTH
-            pronounces1 = pronounces[i...(i + rhyme_vowels.length)]
-            pronounces2 = pronounces[j...(j + rhyme_vowels.length)]
+            range1 = i...(i + rhyme_vowels.length)
+            range2 = j...(j + rhyme_vowels.length)
+            pronounces1 = pronounces[range1]
+            pronounces2 = pronounces[range2]
             next if pronounces1 == pronounces2
-            rhymes.push([pronounces1.join(''), pronounces2.join('')])
+            doubled = [range1, range2].all? do |range|
+              rhyme_ranges.any? do |found_ranges|
+                found_ranges.any? do |found_range|
+                  found_range.cover?(range)
+                end
+              end
+            end
+            next if doubled
+            rhyme_ranges.push([range1, range2])
           end
         end
       end
-      rhymes
+      rhyme_ranges.map do |range1, range2|
+        [pronounces[range1].join(''), pronounces[range2].join('')]
+      end
     end
 
     private
