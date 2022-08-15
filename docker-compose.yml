@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  bot:
+    build: .
+    container_name: rhyme-detection-discord-bot
+    environment:
+      - DISCORD_BOT_TOKEN
+    image: ikngtty/rhyme-detection-discord-bot

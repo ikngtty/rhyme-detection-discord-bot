@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'discordrb'
+gem 'dotenv'
 gem 'natto'
 gem 'rspec'
 
