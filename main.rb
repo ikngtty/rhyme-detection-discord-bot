@@ -19,7 +19,7 @@ bot.ready do
 end
 
 bot.message do |event|
-  return if event.author.bot_account?
+  next if event.author.bot_account?
 
   content = event.content
   quote_multiline_regexp = / ^ >>> \s .* \z /mx
