@@ -28,7 +28,7 @@ bot.message do |event|
   content = content.gsub(quote_regexp, '>')
   spoiler_regexp = / \|\| .+? \|\| /mx
   content = content.gsub(spoiler_regexp, '||||')
-  content = content.gsub(URI.regexp, '***')
+  content = content.gsub(URI::DEFAULT_PARSER.make_regexp, '***')
 
   rhymes = Rhyme.detect(content)
   unless rhymes.empty?
