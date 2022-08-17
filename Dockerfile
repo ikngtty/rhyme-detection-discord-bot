@@ -13,7 +13,7 @@ RUN cd /usr/src/mecab/mecab-0.996 \
 # get "mecab-ipadic-neologd" to pretend to be "ipadic", default `dicdir`.
 RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
     && cd mecab-ipadic-neologd \
-    && bin/install-mecab-ipadic-neologd -n -a -y -p /usr/local/lib/mecab/dic/ipadic
+    && bin/install-mecab-ipadic-neologd -n -a -y -p /usr/local/lib/mecab/dic/ipadic --eliminate-redundant-entry
 
 # About the application's body
 WORKDIR /usr/src/app
