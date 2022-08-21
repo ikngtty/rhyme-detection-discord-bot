@@ -15,11 +15,11 @@ class WordPronounceArray
         features = node.feature.split(',')
         part_of_speech = features[0]
         PronounceArray.new(features[7] || '*').map.with_index do |pronounce, i|
-          WordPronounce.new(word: word, part_of_speech: part_of_speech,
-                            pronounce: pronounce, position_in_word: i)
+          WordPronounce.new(word:, part_of_speech:,
+                            pronounce:, position_in_word: i)
         end
       end
-      self.new(body)
+      new(body)
     end
   end
 

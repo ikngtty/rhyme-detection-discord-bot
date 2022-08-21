@@ -16,19 +16,20 @@ class Rhyme
       (0..(pronounces.length - 2 * MIN_RHYME_LENGTH)).each do |i|
         ((i + MIN_RHYME_LENGTH)..(pronounces.length - MIN_RHYME_LENGTH)).each do |j|
           rhyme_length = get_left_rhyme_length(word_pronounces, vowels, i...j, j...pronounces.length)
-          if rhyme_length > 0
-            range1 = i...(i + rhyme_length)
-            range2 = j...(j + rhyme_length)
-            doubled = [range1, range2].all? do |range|
-              rhyme_ranges.any? do |found_ranges|
-                found_ranges.any? do |found_range|
-                  found_range.cover?(range)
-                end
+          next if rhyme_length == 0
+
+          range1 = i...(i + rhyme_length)
+          range2 = j...(j + rhyme_length)
+          doubled = [range1, range2].all? do |range|
+            rhyme_ranges.any? do |found_ranges|
+              found_ranges.any? do |found_range|
+                found_range.cover?(range)
               end
             end
-            next if doubled
-            rhyme_ranges.push([range1, range2])
           end
+          next if doubled
+
+          rhyme_ranges.push([range1, range2])
         end
       end
       rhyme_ranges.map do |range1, range2|
@@ -64,6 +65,7 @@ class Rhyme
         end
       end
       return 0 if rhyme_length < MIN_RHYME_LENGTH
+
       rhyme_length
     end
   end
