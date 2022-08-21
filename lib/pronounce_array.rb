@@ -1,17 +1,7 @@
 # frozen_string_literal: true
 
-require 'natto'
-
 class PronounceArray
   include Enumerable
-
-  def self.parse(text)
-    mecab = Natto::MeCab.new
-    pronounce_text = mecab.enum_parse(text).map do |node|
-      node.feature.split(',')[7] || '*'
-    end.join('')
-    self.new(pronounce_text)
-  end
 
   def initialize(text)
     @text = text

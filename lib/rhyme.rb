@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'pronounce_array'
+require_relative 'word_pronounce_array'
 require_relative 'vowel'
 
 MIN_RHYME_LENGTH = 5
@@ -8,21 +8,17 @@ MIN_RHYME_LENGTH = 5
 class Rhyme
   class << self
     def detect(text)
-      pronounces = PronounceArray.parse(text).to_a
+      word_pronounces = WordPronounceArray.parse(text)
+      pronounces = word_pronounces.body.map(&:pronounce)
       vowels = Vowel.get_vowels(pronounces)
 
       rhyme_ranges = []
       (0..(pronounces.length - 2 * MIN_RHYME_LENGTH)).each do |i|
         ((i + MIN_RHYME_LENGTH)..(pronounces.length - MIN_RHYME_LENGTH)).each do |j|
-          vowels1 = vowels[i...j]
-          vowels2 = vowels[j...pronounces.length]
-          rhyme_vowels = get_left_rhyme_vowels(vowels1, vowels2)
-          if rhyme_vowels.length >= MIN_RHYME_LENGTH
-            range1 = i...(i + rhyme_vowels.length)
-            range2 = j...(j + rhyme_vowels.length)
-            pronounces1 = pronounces[range1]
-            pronounces2 = pronounces[range2]
-            next if pronounces1 == pronounces2
+          rhyme_length = get_left_rhyme_length(word_pronounces, vowels, i...j, j...pronounces.length)
+          if rhyme_length > 0
+            range1 = i...(i + rhyme_length)
+            range2 = j...(j + rhyme_length)
             doubled = [range1, range2].all? do |range|
               rhyme_ranges.any? do |found_ranges|
                 found_ranges.any? do |found_range|
@@ -42,19 +38,33 @@ class Rhyme
 
     private
 
-    def get_left_rhyme_vowels(vowels1, vowels2)
-      ans = []
-      return ans if vowels1[0] == 'ン'
+    def get_left_rhyme_length(word_pronounces, vowels, range1, range2)
+      vowels1 = vowels[range1]
+      vowels2 = vowels[range2]
+      rhyme_length = 0
+      return rhyme_length if vowels1[0] == 'ン'
 
       length = [vowels1.length, vowels2.length].min
       (0...length).each do |i|
         if vowels1[i] != '*' && vowels1[i] == vowels2[i]
-          ans.push(vowels1[i])
+          rhyme_length += 1
         else
           break
         end
       end
-      ans
+      return 0 if rhyme_length < MIN_RHYME_LENGTH
+
+      words1 = word_pronounces.words_in(range1.begin...(range1.begin + rhyme_length))
+      words2 = word_pronounces.words_in(range2.begin...(range2.begin + rhyme_length))
+      words1.each do |word1|
+        words2.each do |word2|
+          if word1.word == word2.word && word1.part_of_speech == word2.part_of_speech
+            rhyme_length = [rhyme_length, word1.position.begin, word2.position.begin].min
+          end
+        end
+      end
+      return 0 if rhyme_length < MIN_RHYME_LENGTH
+      rhyme_length
     end
   end
 end

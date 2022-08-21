@@ -23,5 +23,10 @@ RSpec.describe Rhyme do
       it { is_expected.to eq [['カンデンチダケ', 'カンセンシタネ'],
                               ['カンデンチダケ', 'カンデンシダネ']] }
     end
+
+    context 'including same words' do
+      let(:text) { 'あからさまなドジは頭からドジ' }
+      it { is_expected.to eq [['アカラサマナ', 'ハアタマカラ']] }
+    end
   end
 end
