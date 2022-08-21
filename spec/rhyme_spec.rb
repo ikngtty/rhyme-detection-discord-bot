@@ -34,5 +34,11 @@ RSpec.describe Rhyme do
 
       it { is_expected.to eq [%w[アカラサマナ ハアタマカラ]] }
     end
+
+    context 'including same pronounciations' do
+      let(:text) { 'オンライン百科事典と百科事典' }
+
+      it { is_expected.to eq [] }
+    end
   end
 end

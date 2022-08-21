@@ -20,6 +20,10 @@ class Rhyme
 
           range1 = i...(i + rhyme_length)
           range2 = j...(j + rhyme_length)
+          pronounces1 = pronounces[range1]
+          pronounces2 = pronounces[range2]
+          next if pronounces1 == pronounces2
+
           doubled = [range1, range2].all? do |range|
             rhyme_ranges.any? do |found_ranges|
               found_ranges.any? do |found_range|
