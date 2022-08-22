@@ -11,7 +11,11 @@ class PronounceArray
     pos = 0
     while pos < @text.length
       if (%w[キ ギ シ ジ チ ヂ ニ ヒ ビ ピ ミ リ].include?(@text[pos]) &&
-        %w[ャ ュ ョ].include?(@text[pos + 1])) ||
+        @text[pos + 1] == 'ャ') ||
+         (%w[ヴ キ ギ シ ジ チ ヂ ニ ヒ フ ビ ブ ピ ミ リ].include?(@text[pos]) &&
+         @text[pos + 1] == 'ュ') ||
+         (%w[キ ギ シ ジ チ ヂ ニ ヒ ビ ピ ミ リ].include?(@text[pos]) &&
+         @text[pos + 1] == 'ョ') ||
          (%w[ヴ ツ ヅ フ].include?(@text[pos]) && @text[pos + 1] == 'ァ') ||
          (%w[ウ ヴ ツ ヅ テ デ フ].include?(@text[pos]) &&
          @text[pos + 1] == 'ィ') ||
