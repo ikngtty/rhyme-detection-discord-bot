@@ -28,6 +28,10 @@ bot.message do |event|
   content = content.gsub(quote_regexp, '>')
   spoiler_regexp = / \|\| .+? \|\| /mx
   content = content.gsub(spoiler_regexp, '||||')
+  code_multiline_regexp = / ``` .+? ``` /mx
+  content = content.gsub(code_multiline_regexp, '``````')
+  code_regexp = / ` .*? ` /mx
+  content = content.gsub(code_regexp, '``')
   content = content.gsub(URI::DEFAULT_PARSER.make_regexp, '***')
 
   rhymes = Rhyme.detect(content)
