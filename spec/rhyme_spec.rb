@@ -40,5 +40,11 @@ RSpec.describe Rhyme do
 
       it { is_expected.to eq [] }
     end
+
+    context 'including same rhymes' do
+      let(:text) { '乾電池で感電死。乾電池で感電死。' }
+
+      it { is_expected.to eq [%w[カンデンチ カンデンシ]]}
+    end
   end
 end

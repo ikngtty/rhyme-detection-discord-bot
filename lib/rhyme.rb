@@ -33,6 +33,14 @@ class Rhyme
           end
           next if covered
 
+          doubled = rhyme_ranges.any? do |found_range1, found_range2|
+            found_pronounces1 = pronounces[found_range1]
+            found_pronounces2 = pronounces[found_range2]
+            (pronounces1 == found_pronounces1 && pronounces2 == found_pronounces2) ||
+              (pronounces1 == found_pronounces2 && pronounces2 == found_pronounces1)
+          end
+          next if doubled
+
           rhyme_ranges.push([range1, range2])
         end
       end
