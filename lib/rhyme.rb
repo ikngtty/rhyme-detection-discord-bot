@@ -24,14 +24,14 @@ class Rhyme
           pronounces2 = pronounces[range2]
           next if pronounces1 == pronounces2
 
-          doubled = [range1, range2].all? do |range|
+          covered = [range1, range2].all? do |range|
             rhyme_ranges.any? do |found_ranges|
               found_ranges.any? do |found_range|
                 found_range.cover?(range)
               end
             end
           end
-          next if doubled
+          next if covered
 
           rhyme_ranges.push([range1, range2])
         end
