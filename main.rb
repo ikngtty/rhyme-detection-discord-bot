@@ -12,7 +12,7 @@ unless token
   exit 1
 end
 
-bot = Discordrb::Bot.new token: token
+bot = Discordrb::Bot.new token: token, intents: [:server_messages]
 
 bot.ready do
   bot.game = 'ラップ'
