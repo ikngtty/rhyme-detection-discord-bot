@@ -2,18 +2,18 @@
 Rhyme
   .detect
     when the rhymes have 5 sounds
-[32m      detects them[0m
+      detects them
     when the rhymes have 7 sounds
-[32m      detects them[0m
+      detects them
     when the text have 3 rhymes
-[32m      detects 2 rhyme pairs[0m
+      detects 2 rhyme pairs
     when the rhymes have the same words
-[32m      detect the rhymes without the words[0m
+      detect the rhymes without the words
     when the rhymes have fully same consonant
-[32m      does not detect them[0m
+      does not detect them
     when the text have 2 same rhyme pairs
-[32m      detects 1 pair[0m
+      detects 1 pair
 
-Finished in 0.03286 seconds (files took 0.15427 seconds to load)
-[32m6 examples, 0 failures[0m
+Finished in 0.03273 seconds (files took 0.15619 seconds to load)
+6 examples, 0 failures
 
