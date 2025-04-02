@@ -8,43 +8,54 @@ RSpec.describe Rhyme do
       Rhyme.detect(text)
     end
 
-    context '5 length rhyme' do
+    context 'when the rhymes have 5 sounds' do
       let(:text) { '乾電池で感電死' }
 
-      it { is_expected.to eq [%w[カンデンチ カンデンシ]] }
+      it 'detects them' do
+        is_expected.to eq [%w[カンデンチ カンデンシ]]
+      end
     end
 
-    context '7 length rhyme' do
+    context 'when the rhymes have 7 sounds' do
       let(:text) { '乾電池だけで感電死だね' }
 
-      it { is_expected.to eq [%w[カンデンチダケ カンデンシダネ]] }
+      it 'detects them' do
+        is_expected.to eq [%w[カンデンチダケ カンデンシダネ]]
+      end
     end
 
-    context '3 rhymes' do
+    context 'when the text have 3 rhymes' do
       let(:text) { '乾電池だけで感染したね。更に感電死だね。' }
 
-      it {
-        expect(subject).to eq [%w[カンデンチダケ カンセンシタネ],
-                               %w[カンデンチダケ カンデンシダネ]]
-      }
+      it 'detects 2 rhyme pairs' do
+        is_expected.to eq [%w[カンデンチダケ カンセンシタネ],
+                           %w[カンデンチダケ カンデンシダネ]]
+      end
     end
 
-    context 'including same words' do
+    context 'when the rhymes have the same words' do
       let(:text) { 'あからさまなドジは頭からドジ' }
 
-      it { is_expected.to eq [%w[アカラサマナ ハアタマカラ]] }
+      it 'detect the rhymes without the words' do
+        is_expected.to eq [%w[アカラサマナ ハアタマカラ]] # without ドジ
+      end
     end
 
-    context 'including same pronounciations' do
+    context 'when the rhymes have fully same consonant' do
+      # Mecab regard オンライン百科事典 as one word.
       let(:text) { 'オンライン百科事典と百科事典' }
 
-      it { is_expected.to eq [] }
+      it 'does not detect them' do
+        is_expected.to eq []
+      end
     end
 
-    context 'including same rhymes' do
+    context 'when the text have 2 same rhyme pairs' do
       let(:text) { '乾電池で感電死。乾電池で感電死。' }
 
-      it { is_expected.to eq [%w[カンデンチ カンデンシ]]}
+      it 'detects 1 pair' do
+        is_expected.to eq [%w[カンデンチ カンデンシ]]
+      end
     end
   end
 end
