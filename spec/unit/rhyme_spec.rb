@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/rhyme'
+require_relative '../../lib/rhyme'
 
 RSpec.describe Rhyme do
   describe '.detect' do
