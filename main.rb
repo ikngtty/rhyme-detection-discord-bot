@@ -36,10 +36,18 @@ bot.message do |event|
 
   rhymes = Rhyme.detect(content)
   unless rhymes.empty?
-    detection = rhymes.map do |rhyme1, rhyme2|
+    message_of_rhymes = rhymes.map do |rhyme1, rhyme2|
       "「#{rhyme1}」と「#{rhyme2}」"
     end.join('、')
-    event.respond("#{detection}で踏んでるYO！")
+    message = "#{message_of_rhymes}で踏んでるYO！"
+
+    max_message_length = 140
+    ellipsis = 'ｱ ｱﾗﾗｧ ｱ ｱｱｧ!!'
+    if message.length > max_message_length - ellipsis.length
+      message = message[0..(max_message_length - ellipsis.length)] + ellipsis
+    end
+
+    event.respond(message)
   end
 end
 
