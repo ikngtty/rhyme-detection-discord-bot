@@ -1,64 +1,76 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    ast (2.4.2)
-    base64 (0.2.0)
-    diff-lcs (1.6.0)
-    discordrb (3.5.0)
-      discordrb-webhooks (~> 3.5.0)
+    ast (2.4.3)
+    base64 (0.3.0)
+    diff-lcs (1.6.2)
+    discordrb (3.7.1)
+      base64 (~> 0.2)
+      discordrb-webhooks (~> 3.7.1)
       ffi (>= 1.9.24)
       opus-ruby
       rest-client (>= 2.0.0)
-      websocket-client-simple (>= 0.3.0)
-    discordrb-webhooks (3.5.0)
+      websocket-client-simple (>= 0.9.0)
+    discordrb-webhooks (3.7.1)
       rest-client (>= 2.0.0)
     domain_name (0.6.20240107)
-    dotenv (3.1.7)
+    dotenv (3.2.0)
     event_emitter (0.2.6)
-    ffi (1.17.1)
+    ffi (1.17.2)
+    ffi (1.17.2-aarch64-linux-gnu)
+    ffi (1.17.2-aarch64-linux-musl)
+    ffi (1.17.2-arm-linux-gnu)
+    ffi (1.17.2-arm-linux-musl)
+    ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2-x86-linux-gnu)
+    ffi (1.17.2-x86-linux-musl)
+    ffi (1.17.2-x86_64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
+    ffi (1.17.2-x86_64-linux-musl)
     http-accept (1.7.0)
-    http-cookie (1.0.8)
+    http-cookie (1.1.0)
       domain_name (~> 0.5)
-    json (2.10.1)
-    language_server-protocol (3.17.0.4)
+    json (2.18.0)
+    language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
-    logger (1.6.6)
-    mime-types (3.6.0)
+    logger (1.7.0)
+    mime-types (3.7.0)
       logger
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2025.0220)
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2025.0924)
     mutex_m (0.3.0)
     natto (1.2.0)
       ffi (>= 1.9.0)
     netrc (0.11.0)
     opus-ruby (1.0.1)
       ffi
-    parallel (1.26.3)
-    parser (3.3.7.1)
+    parallel (1.27.0)
+    parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
+    prism (1.6.0)
     racc (1.8.1)
     rainbow (3.1.1)
-    regexp_parser (2.10.0)
+    regexp_parser (2.11.3)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rspec (3.13.0)
+    rspec (3.13.2)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
       rspec-mocks (~> 3.13.0)
-    rspec-core (3.13.3)
+    rspec-core (3.13.6)
       rspec-support (~> 3.13.0)
-    rspec-expectations (3.13.3)
+    rspec-expectations (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-mocks (3.13.2)
+    rspec-mocks (3.13.7)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-support (3.13.2)
-    rubocop (1.73.2)
+    rspec-support (3.13.6)
+    rubocop (1.81.7)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -66,27 +78,29 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.38.0, < 2.0)
+      rubocop-ast (>= 1.47.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.38.1)
-      parser (>= 3.3.1.0)
-    rubocop-performance (1.24.0)
+    rubocop-ast (1.48.0)
+      parser (>= 3.3.7.2)
+      prism (~> 1.4)
+    rubocop-performance (1.26.1)
       lint_roller (~> 1.1)
-      rubocop (>= 1.72.1, < 2.0)
-      rubocop-ast (>= 1.38.0, < 2.0)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.47.1, < 2.0)
     rubocop-require_tools (0.1.2)
       rubocop (>= 0.49.1)
-    rubocop-rspec (3.5.0)
+    rubocop-rspec (3.8.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.81)
+    rubocop-thread_safety (0.7.3)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    rubocop-thread_safety (0.7.0)
-      lint_roller (~> 1.1)
-      rubocop (~> 1.72, >= 1.72.1)
+      rubocop-ast (>= 1.44.0, < 2.0)
     ruby-progressbar (1.13.0)
-    unicode-display_width (3.1.4)
-      unicode-emoji (~> 4.0, >= 4.0.4)
-    unicode-emoji (4.0.4)
+    unicode-display_width (3.2.0)
+      unicode-emoji (~> 4.1)
+    unicode-emoji (4.1.0)
     websocket (1.2.11)
     websocket-client-simple (0.9.0)
       base64
@@ -95,9 +109,17 @@ GEM
       websocket
 
 PLATFORMS
-  x86_64-darwin-21
-  x86_64-darwin-24
-  x86_64-linux
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
+  ruby
+  x86-linux-gnu
+  x86-linux-musl
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
   discordrb
@@ -111,4 +133,4 @@ DEPENDENCIES
   rubocop-thread_safety
 
 BUNDLED WITH
-   2.3.20
+   2.7.2
