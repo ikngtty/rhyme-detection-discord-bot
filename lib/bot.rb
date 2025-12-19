@@ -23,18 +23,7 @@ class Bot
   def handle_message(event)
     return if event.author.bot_account?
 
-    content = event.content
-    quote_multiline_regexp = / ^ >>> \s .* \z /mx
-    content = content.gsub(quote_multiline_regexp, ">>>\n")
-    quote_regexp = / ^ > \s .* $ /x
-    content = content.gsub(quote_regexp, '>')
-    spoiler_regexp = / \|\| .+? \|\| /mx
-    content = content.gsub(spoiler_regexp, '||||')
-    code_multiline_regexp = / ``` .+? ``` /mx
-    content = content.gsub(code_multiline_regexp, '``````')
-    code_regexp = / ` .*? ` /mx
-    content = content.gsub(code_regexp, '``')
-    content = content.gsub(URI::DEFAULT_PARSER.make_regexp, '***')
+    content = escape_message_for_detection(event.content)
 
     rhymes = Rhyme.detect(content)
     unless rhymes.empty?
@@ -51,5 +40,22 @@ class Bot
 
       event.respond(message)
     end
+  end
+
+  private
+
+  def escape_message_for_detection(message)
+    quote_multiline_regexp = / ^ >>> \s .* \z /mx
+    message = message.gsub(quote_multiline_regexp, ">>>\n")
+    quote_regexp = / ^ > \s .* $ /x
+    message = message.gsub(quote_regexp, '>')
+    spoiler_regexp = / \|\| .+? \|\| /mx
+    message = message.gsub(spoiler_regexp, '||||')
+    code_multiline_regexp = / ``` .+? ``` /mx
+    message = message.gsub(code_multiline_regexp, '``````')
+    code_regexp = / ` .*? ` /mx
+    message = message.gsub(code_regexp, '``')
+    message = message.gsub(URI::DEFAULT_PARSER.make_regexp, '***')
+    message
   end
 end
