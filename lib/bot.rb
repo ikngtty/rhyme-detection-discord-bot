@@ -23,23 +23,7 @@ class Bot
   def handle_message(event)
     return if event.author.bot_account?
 
-    content = escape_message_for_detection(event.content)
-
-    rhymes = Rhyme.detect(content)
-    unless rhymes.empty?
-      message_of_rhymes = rhymes.map do |rhyme1, rhyme2|
-        "「#{rhyme1}」と「#{rhyme2}」"
-      end.join('、')
-      message = "#{message_of_rhymes}で踏んでるYO！"
-
-      max_message_length = 140
-      ellipsis = 'ｱ ｱﾗﾗｧ ｱ ｱｱｧ!!'
-      if message.length > max_message_length - ellipsis.length
-        message = message[0..(max_message_length - ellipsis.length)] + ellipsis
-      end
-
-      event.respond(message)
-    end
+    detect(event.content, event.method(:respond))
   end
 
   private
@@ -57,5 +41,25 @@ class Bot
     message = message.gsub(code_regexp, '``')
     message = message.gsub(URI::DEFAULT_PARSER.make_regexp, '***')
     message
+  end
+
+  def detect(content, responder)
+    content = escape_message_for_detection(content)
+
+    rhymes = Rhyme.detect(content)
+    return if rhymes.empty?
+
+    message_of_rhymes = rhymes.map do |rhyme1, rhyme2|
+      "「#{rhyme1}」と「#{rhyme2}」"
+    end.join('、')
+    message = "#{message_of_rhymes}で踏んでるYO！"
+
+    max_message_length = 140
+    ellipsis = 'ｱ ｱﾗﾗｧ ｱ ｱｱｧ!!'
+    if message.length > max_message_length - ellipsis.length
+      message = message[0..(max_message_length - ellipsis.length)] + ellipsis
+    end
+
+    responder.call(message)
   end
 end
