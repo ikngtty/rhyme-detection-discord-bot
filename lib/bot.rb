@@ -41,7 +41,7 @@ class Bot
 
       \s*
 
-      (?<command> \S+)
+      (?<command> \S*)
 
       \s*
 
